@@ -1,0 +1,18 @@
+﻿using GenExcel.Domain.Enums;
+
+namespace GenExcel.Application.Tickets.Dtos;
+
+public sealed record TicketEventDetailsDto(
+    int TicketId,
+    int EventId,
+    string Name,
+    string Description,
+    decimal Price,
+    int Available,
+    int Sold,
+    DateTime SaleStartDate,
+    DateTime SaleEndDate,
+    TicketEventStatus Status,
+    DateTime CreateDate,
+    DateTime? UpdateDate
+);
