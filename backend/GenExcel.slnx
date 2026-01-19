@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GenExcel.API/GenExcel.API.csproj" DisplayName="GenExcel.Api" />
+    <Project Path="src/GenExcel.Application/GenExcel.Application.csproj" />
+    <Project Path="src/GenExcel.Domain/GenExcel.Domain.csproj" />
+    <Project Path="src/GenExcel.Infrastructure/GenExcel.Infrastructure.csproj" />
+  </Folder>
+</Solution>
