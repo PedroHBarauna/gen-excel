@@ -59,6 +59,7 @@ namespace GenExcel.Infrastructure.Persistence.Migrations
                     TicketId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FeeRate = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Available = table.Column<int>(type: "int", nullable: false),
                     Sold = table.Column<int>(type: "int", nullable: false, defaultValue: 0),

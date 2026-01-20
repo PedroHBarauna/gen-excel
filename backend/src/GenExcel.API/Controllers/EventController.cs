@@ -4,11 +4,13 @@ using GenExcel.Application.Events.Dtos;
 using GenExcel.Application.Events.Queries;
 using GenExcel.Application.Events.Services;
 using GenExcel.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GenExcel.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/events")]
 public sealed class EventsController : ControllerBase

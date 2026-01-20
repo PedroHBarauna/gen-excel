@@ -14,7 +14,7 @@ public class TicketEvent
 
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
-
+    public decimal FeeRate { get; set; } = 0.20m;
     public decimal Price { get; set; }
     public int Available { get; set; }
     public int Sold { get; set; }

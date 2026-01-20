@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GenExcel.API.Controllers;
-
 [ApiController]
 [Route("api/health")]
 public sealed class HealthController : ControllerBase

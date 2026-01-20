@@ -2,17 +2,17 @@
 
 namespace GenExcel.Application.Tickets.Dtos;
 
-public sealed record TicketEventDetailsDto(
+public sealed record TicketEventListDto(
+    int TicketEventId,
     int TicketId,
     int EventId,
     string Name,
     string Description,
+    decimal Fee,
     decimal Price,
     int Available,
     int Sold,
     DateTime SaleStartDate,
     DateTime SaleEndDate,
-    TicketEventStatus Status,
-    DateTime CreateDate,
-    DateTime? UpdateDate
+    TicketEventStatus Status
 );

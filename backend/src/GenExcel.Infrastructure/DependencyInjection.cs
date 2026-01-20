@@ -1,6 +1,8 @@
 ﻿using GenExcel.Application.Events.Ports;
+using GenExcel.Application.Exports.Reports;
 using GenExcel.Application.Sales.Ports;
 using GenExcel.Application.Tickets.Ports;
+using GenExcel.Infrastructure.Exports.Reports;
 using GenExcel.Infrastructure.Persistence;
 using GenExcel.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,7 @@ public static class DependencyInjection
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<ITicketEventRepository, TicketEventRepository>();
         services.AddScoped<ISaleRepository, SaleRepository>();
+        services.AddScoped<IReportService, ReportService>();
 
         return services;
     }

@@ -122,9 +122,6 @@ public sealed class SaleService : ISaleService
         if (ticket.Sold < 0) ticket.Sold = 0;
     }
 
-
-
-
     private static void Validate(CreateSaleRequest r)
     {
         if (r.TicketEventId <= 0) throw new ArgumentException("TicketId is required.");

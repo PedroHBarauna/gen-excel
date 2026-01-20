@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GenExcel.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260119053113_InitialCreate")]
+    [Migration("20260120091311_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -195,6 +195,9 @@ namespace GenExcel.Infrastructure.Persistence.Migrations
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("FeeRate")
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -4,11 +4,13 @@ using GenExcel.Application.Sales.Dtos;
 using GenExcel.Application.Sales.Queries;
 using GenExcel.Application.Sales.Services;
 using GenExcel.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GenExcel.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/sales")]
 public sealed class SalesController : ControllerBase

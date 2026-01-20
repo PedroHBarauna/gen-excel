@@ -1,2 +1,126 @@
-# gen-excel
-Avaliação técnica de geração de planilha de excel conforme exemplo
+# GenExcel — Relatórios de Eventos em Excel (Teste Técnico Ticketmaster)
+
+Projeto desenvolvido como **teste técnico para a vaga na Ticketmaster**.  
+A aplicação é usada para **gerar relatórios de eventos em planilha Excel (.xlsx)**.
+
+---
+
+## Visão geral
+
+O objetivo do projeto é disponibilizar uma forma simples de **consultar dados de eventos** (e informações relacionadas) e **exportar um relatório em Excel**.
+
+**Componentes:**
+- **Backend (.NET 10)**: API responsável por consultar dados e gerar/servir o arquivo Excel.
+- **Frontend (React)**: interface para filtros e disparo da exportação.
+- **Banco de dados (SQL Server)**: persistência (ambiente local via Docker).
+
+---
+
+## Stack
+
+- **Backend**: .NET 10, ASP.NET Core Web API, EF Core
+- **Frontend**: React
+- **Banco**: SQL Server
+- **Infra local**: Docker + Docker Compose
+
+---
+
+## Como rodar — Docker Compose
+
+### Pré-requisitos
+- Docker e Docker Compose instalados
+
+### Subir tudo
+```bash
+docker compose up --build
+```
+
+### Após subir, você terá:
+
+### Frontend: http://localhost:<porta-do-frontend>
+
+### Backend: http://localhost:<porta-do-backend>
+
+### Swagger (se habilitado): http://localhost:<porta-do-backend>/swagger
+
+
+## 🧩 Como rodar passo a passo (sem Docker)
+
+### 1) Subir SQL Server (opção via Docker)
+Mesmo rodando o app sem Docker, você pode usar o SQL Server via container:
+
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=SuaSenhaForte@123" \
+  -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2022-latest
+```
+
+### 2) Configurar a connection string do backend
+
+No `appsettings.json` do backend (ou via variáveis de ambiente), configure:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=GenExcelDb;User Id=sa;Password=SuaSenhaForte@123;TrustServerCertificate=True;"
+  }
+}
+```
+
+### 3) Rodar o backend (.NET 10)
+
+Na pasta do backend:
+
+```bash
+dotnet restore
+dotnet ef database update
+dotnet run
+```
+
+### 4) Rodar o frontend (React)
+
+Na pasta do frontend:
+
+```bash
+npm install
+npm run dev
+```
+
+## 📦 Como gerar o Excel
+
+Fluxo padrão:
+1. Acesse o **frontend**
+2. Selecione os filtros (ex.: período, evento, status, etc.)
+3. Clique em **Exportar Excel**
+4. O backend gera e retorna o arquivo **`.xlsx`** para download
+
+> Se existir um endpoint específico para exportação, você também pode testá-lo via **Swagger** (`/swagger`).
+
+## 🔧 Melhorias futuras 
+
+### 1) Mudança e padronização dos nomes dos projetos .NET
+- Renomear projeto para abrangência de escopo
+
+### 2) Testes unitários e testes de integração
+- **Unitários**:
+  - regras de negócio
+  - validações e transformações de dados
+  - agregações usadas no relatório
+- **Integração**:
+  - endpoints de exportação
+  - validação do conteúdo gerado no Excel (colunas/linhas mínimas e consistência)
+
+### 3) Expansão de contexto para um sistema maior (ticketing)
+Evoluir o projeto além de relatórios, suportando também:
+- **criação e gestão de eventos**
+- **gestão de ingressos, lotes e preços**
+- **processamento/controle de vendas**
+- **auditoria e reconciliação**
+### 4) Melhorias na geração do Excel e endpoints
+- Melhoria de estrutura de validação de filtros e de requests
+- Melhoria de algoritmo da geração utilizando InsertDataTable para grandes volumes
+---
+
+## 📝 Observações
+
+Este projeto foi construído para fins de **avaliação técnica**, portanto pode conter simplificações (infra local, ausência de autenticação, validações mínimas).  
+As melhorias listadas acima apontam caminhos claros para torná-lo mais robusto e pronto para produção.

@@ -1,4 +1,5 @@
 ﻿using GenExcel.Application.Events.Services;
+using GenExcel.Application.Sales.Services;
 using GenExcel.Application.Tickets.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,8 @@ public static class DependencyInjection
     {
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<ITicketEventService, TicketEventService>();
+        services.AddScoped<ISaleService, SaleService>();
+
         return services;
     }
 }

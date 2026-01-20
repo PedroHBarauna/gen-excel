@@ -193,6 +193,9 @@ namespace GenExcel.Infrastructure.Persistence.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("FeeRate")
+                        .HasColumnType("decimal(5,2)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
