@@ -1,13 +1,13 @@
 # GenExcel — Relatórios de Eventos em Excel (Teste Técnico Ticketmaster)
 
 Projeto desenvolvido como **teste técnico para a vaga na Ticketmaster**.  
-A aplicação é usada para **gerar relatórios de eventos em planilha Excel (.xlsx)**.
+A aplicação é usada para **gerar planilha Excel (.xlsx) com dados fake/contexto aplicado**.
 
 ---
 
 ## Visão geral
 
-O objetivo do projeto é disponibilizar uma forma simples de **consultar dados de eventos** (e informações relacionadas) e **exportar um relatório em Excel**.
+O objetivo do projeto é disponibilizar uma forma de **consultar dados de eventos** (e informações relacionadas) e **exportar um relatório em Excel**.
 
 **Componentes:**
 - **Backend (.NET 10)**: API responsável por consultar dados e gerar/servir o arquivo Excel.
@@ -37,11 +37,11 @@ docker compose up --build
 
 ### Após subir, você terá:
 
-### Frontend: http://localhost:<porta-do-frontend>
+### Frontend: http://localhost:5173
 
-### Backend: http://localhost:<porta-do-backend>
+### Backend: http://localhost:8080
 
-### Swagger (se habilitado): http://localhost:<porta-do-backend>/swagger
+### Swagger (se habilitado): http://localhost:8080/swagger
 
 
 ## 🧩 Como rodar passo a passo (sem Docker)
@@ -84,6 +84,7 @@ Na pasta do frontend:
 npm install
 npm run dev
 ```
+## Defina porta que irá rodar, pois tanto o .NET quanto o vite expoem a porta 8080.
 
 ## 📦 Como gerar o Excel
 
