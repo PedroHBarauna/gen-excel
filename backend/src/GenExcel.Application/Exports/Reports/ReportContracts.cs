@@ -1,11 +1,11 @@
-﻿public sealed record CategoryDto(string Id, string Nome);
+﻿public sealed record CategoryDto(string Id, string Name);
 public sealed record FieldDto(string Id, string Label);
 
-public sealed record SearchResultDto(string Id, string Texto);
+public sealed record SearchResultDto(string Id, string Text);
 
 public sealed record TextDetailsDto(
     string Id,
-    string Texto,
-    CategoryDto Categoria,
-    List<FieldDto> Campos
+    string Text,
+    CategoryDto Category,
+    List<FieldDto> Fields
 );

@@ -447,7 +447,7 @@ public sealed class ReportService : IReportService
         return items;
     }
 
-    public async Task<TextDetailsDto?> GetTextoDetailsAsync(int eventId, CancellationToken ct)
+    public async Task<TextDetailsDto?> GetTextDetailsAsync(int eventId, CancellationToken ct)
     {
         var ev = await _db.Event.AsNoTracking()
             .Where(e => e.EventId == eventId)

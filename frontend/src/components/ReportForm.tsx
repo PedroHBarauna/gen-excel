@@ -160,7 +160,7 @@ const ReportForm = ({ onAdd }: ReportFormProps) => {
       <div className="flex flex-wrap items-end gap-4">
         <div className="flex-1 min-w-[200px]">
           <Label htmlFor="texto" className="mb-2 block text-sm font-medium">
-            Texto
+            Evento
           </Label>
           <AutocompleteInput
             id="texto"

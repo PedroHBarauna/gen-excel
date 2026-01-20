@@ -50,7 +50,7 @@ public sealed class EventReportController : ControllerBase
     [HttpGet("texts/{id:int}")]
     public async Task<IActionResult> GetTextDetails([FromRoute] int id, CancellationToken ct)
     {
-        var details = await _service.GetTextoDetailsAsync(id, ct);
+        var details = await _service.GetTextDetailsAsync(id, ct);
         return details is null ? NotFound() : Ok(details);
     }
 }

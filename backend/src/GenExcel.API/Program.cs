@@ -68,6 +68,22 @@ builder.Services
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddAuthorization();
+
+var allowedOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>()
+    ?? ["http://localhost:5173"];
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy
+            .WithOrigins(allowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 app.ApplyMigrations();
@@ -83,8 +99,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+app.UseRouting();
+app.UseCors("Frontend");
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
