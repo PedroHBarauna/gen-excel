@@ -43,5 +43,84 @@ docker compose up --build
 
 ### Swagger (se habilitado): http://localhost:<porta-do-backend>/swagger
 
-Nota: o SQL Server pode demorar para iniciar. Em alguns cenários o backend pode tentar conectar antes do banco estar pronto.
-Ver a seção Melhorias futuras para estratégias como retry de conexão e healthcheck.
+
+## 🧩 Como rodar passo a passo (sem Docker)
+
+### 1) Subir SQL Server (opção via Docker)
+Mesmo rodando o app sem Docker, você pode usar o SQL Server via container:
+
+```bash
+docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=SuaSenhaForte@123" \
+  -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2022-latest
+```
+
+### 2) Configurar a connection string do backend
+
+No `appsettings.json` do backend (ou via variáveis de ambiente), configure:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=GenExcelDb;User Id=sa;Password=SuaSenhaForte@123;TrustServerCertificate=True;"
+  }
+}
+```
+
+### 3) Rodar o backend (.NET 10)
+
+Na pasta do backend:
+
+```bash
+dotnet restore
+dotnet ef database update
+dotnet run
+```
+
+### 4) Rodar o frontend (React)
+
+Na pasta do frontend:
+
+```bash
+npm install
+npm run dev
+```
+
+## 📦 Como gerar o Excel
+
+Fluxo padrão:
+1. Acesse o **frontend**
+2. Selecione os filtros (ex.: período, evento, status, etc.)
+3. Clique em **Exportar Excel**
+4. O backend gera e retorna o arquivo **`.xlsx`** para download
+
+> Se existir um endpoint específico para exportação, você também pode testá-lo via **Swagger** (`/swagger`).
+
+## 🔧 Melhorias futuras 
+
+### 1) Mudança e padronização dos nomes dos projetos .NET
+- Renomear projeto para abrangência de escopo
+
+### 2) Testes unitários e testes de integração
+- **Unitários**:
+  - regras de negócio
+  - validações e transformações de dados
+  - agregações usadas no relatório
+- **Integração**:
+  - endpoints de exportação
+  - validação do conteúdo gerado no Excel (colunas/linhas mínimas e consistência)
+
+### 3) Expansão de contexto para um sistema maior (ticketing)
+Evoluir o projeto além de relatórios, suportando também:
+- **criação e gestão de eventos**
+- **gestão de ingressos, lotes e preços**
+- **processamento/controle de vendas**
+- **auditoria e reconciliação**
+### 4) Melhorias na geração do Excel e endpoints
+- Melhoria de estrutura de validação de filtros e de requests
+- Melhoria de algoritmo da geração utilizando InsertDataTable para grandes volumes
+---
+
+## 📝 Observações
+
+Este projeto foi construído para fins de **avaliação técnica**, portanto pode conter simplificações (infra local, ausência de autenticação, validações mínimas).  
+As melhorias listadas acima apontam caminhos claros para torná-lo mais robusto e pronto para produção.
