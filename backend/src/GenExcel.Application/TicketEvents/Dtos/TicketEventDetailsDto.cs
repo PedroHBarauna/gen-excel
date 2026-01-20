@@ -3,6 +3,7 @@
 namespace GenExcel.Application.Tickets.Dtos;
 
 public sealed record TicketEventDetailsDto(
+    int TicketEventId,
     int TicketId,
     int EventId,
     string Name,

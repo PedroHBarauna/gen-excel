@@ -4,11 +4,13 @@ using GenExcel.Application.Tickets.Dtos;
 using GenExcel.Application.Tickets.Queries;
 using GenExcel.Application.Tickets.Services;
 using GenExcel.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GenExcel.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/tickets")]
 public sealed class TicketEventController : ControllerBase

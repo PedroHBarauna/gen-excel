@@ -20,6 +20,10 @@ services:
       dockerfile: Dockerfile
     container_name: gen-excel-backend
     environment:
+      Jwt__Issuer: "GenExcel"
+      Jwt__Audience: "GenExcel"
+      Jwt__Key: "${JWT_KEY}"
+      Jwt__ExpiresMinutes: "60"
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ConnectionStrings__DefaultConnection: "Server=${DB_HOST},${DB_PORT};Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True"
     depends_on:

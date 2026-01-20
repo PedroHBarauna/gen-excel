@@ -102,6 +102,7 @@ public sealed class TicketEventService : ITicketEventService
 
     private static TicketEventDetailsDto Map(TicketEvent t) =>
         new(
+            t.TicketEventId,
             t.TicketId,
             t.EventId,
             t.Name,

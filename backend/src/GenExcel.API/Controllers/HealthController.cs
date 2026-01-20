@@ -1,10 +1,12 @@
 ﻿using GenExcel.API.Contracts.Health;
 using GenExcel.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GenExcel.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/health")]
 public sealed class HealthController : ControllerBase

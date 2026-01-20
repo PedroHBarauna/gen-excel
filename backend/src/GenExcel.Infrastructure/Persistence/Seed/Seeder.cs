@@ -83,10 +83,19 @@ public static class Seeder
         db.Ticket.AddRange(tickets);
         await db.SaveChangesAsync();
 
+        var pista = tickets.First(t => t.TicketType == "Pista");
+        var pistaPremium = tickets.First(t => t.TicketType == "Pista Premium");
+        var cadeiraSuperior = tickets.First(t => t.TicketType == "Cadeira Superior");
+        var cadeiraInferior = tickets.First(t => t.TicketType == "Cadeira Inferior");
+        var vip = tickets.First(t => t.TicketType == "VIP");
+
         var ticketEvents = new List<TicketEvent>
         {
             new TicketEvent
             {
+                TicketId = pista.TicketId,
+                Name = pista.TicketType,
+                Description = pista.Description!,
                 EventId = rockEvent.EventId,
                 Price = 120.00m,
                 Available = 2500,
@@ -98,6 +107,9 @@ public static class Seeder
             },
             new TicketEvent
             {
+                TicketId = pistaPremium.TicketId,
+                Name = pistaPremium.TicketType,
+                Description = pistaPremium.Description!,
                 EventId = rockEvent.EventId,
                 Price = 350.00m,
                 Available = 500,
@@ -109,6 +121,9 @@ public static class Seeder
             },
             new TicketEvent
             {
+                TicketId = vip.TicketId,
+                Name = vip.TicketType,
+                Description = vip.Description!,
                 EventId = raggatonEvent.EventId,
                 Price = 700.00m,
                 Available = 200,
@@ -120,6 +135,9 @@ public static class Seeder
             },
             new TicketEvent
             {
+                TicketId = cadeiraInferior.TicketId,
+                Name = cadeiraInferior.TicketType,
+                Description = cadeiraInferior.Description!,
                 EventId = raggatonEvent.EventId,
                 Price = 250.00m,
                 Available = 1000,
@@ -131,6 +149,9 @@ public static class Seeder
             },
             new TicketEvent
             {
+                TicketId = cadeiraSuperior.TicketId,
+                Name = cadeiraSuperior.TicketType,
+                Description = cadeiraSuperior.Description!,
                 EventId = raggatonEvent.EventId,
                 Price = 150.00m,
                 Available = 2300,
@@ -142,6 +163,9 @@ public static class Seeder
             },
             new TicketEvent
             {
+                TicketId = pista.TicketId,
+                Name = pista.TicketType,
+                Description = pista.Description!,
                 EventId = raggatonEvent.EventId,
                 Price = 200.00m,
                 Available = 1000,
@@ -153,6 +177,9 @@ public static class Seeder
             },
             new TicketEvent
             {
+                TicketId = pistaPremium.TicketId,
+                Name = pistaPremium.TicketType,
+                Description = pistaPremium.Description!,
                 EventId = raggatonEvent.EventId,
                 Price = 470.00m,
                 Available = 500,
