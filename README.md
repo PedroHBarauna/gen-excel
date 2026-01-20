@@ -25,7 +25,7 @@ O objetivo do projeto é disponibilizar uma forma simples de **consultar dados d
 
 ---
 
-## Como rodar (rápido) — Docker Compose
+## Como rodar — Docker Compose
 
 ### Pré-requisitos
 - Docker e Docker Compose instalados

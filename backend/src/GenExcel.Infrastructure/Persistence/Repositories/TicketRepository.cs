@@ -38,10 +38,8 @@ public sealed class TicketRepository : ITicketRepository
     {
         var query = _db.Ticket.AsNoTracking().AsQueryable();
 
-        // ===== filtros =====
         if (!string.IsNullOrWhiteSpace(q.TicketType))
         {
-            // Use Like pra ficar bom no SQL (e permitir índices dependendo do padrão)
             var term = q.TicketType.Trim();
             query = query.Where(t => EF.Functions.Like(t.TicketType, $"%{term}%"));
         }
@@ -51,10 +49,8 @@ public sealed class TicketRepository : ITicketRepository
 
         var total = await query.CountAsync(ct);
 
-        // ===== ordenação =====
         query = ApplySorting(query, q.Sort, q.Dir);
 
-        // ===== paginação =====
         var page = q.Page < 1 ? 1 : q.Page;
         var pageSize = q.PageSize is < 1 or > 200 ? 20 : q.PageSize;
 
@@ -68,7 +64,6 @@ public sealed class TicketRepository : ITicketRepository
                 t.Status,
                 t.CreateDate,
                 t.UpdateDate
-            // Se você adicionar Ticket.FeeRate no futuro, inclua aqui também.
             ))
             .ToListAsync(ct);
 

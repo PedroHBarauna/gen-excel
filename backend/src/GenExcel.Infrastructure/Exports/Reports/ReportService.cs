@@ -111,7 +111,7 @@ public sealed class ReportService : IReportService
                 $"{ev.EventName} — {ev.EventDateTime:dd/MM/yyyy} ({ev.City})";
             ws.Cell(labelRow, 2).Style.Font.Bold = true;
 
-            var headerRow = labelRow + 2; 
+            var headerRow = labelRow + 2;
             var dataStartRow = headerRow + 1;
 
             var specs = BuildSpecs(rep);
@@ -313,7 +313,7 @@ public sealed class ReportService : IReportService
 
                 TicketEventColumn.FeeRate => new ColSpec(
                     col, header,
-                    r => r.FeeRate, // 0.20m => 20%
+                    r => r.FeeRate,
                     ColFormat.Percent,
                     null
                 ),
@@ -458,8 +458,7 @@ public sealed class ReportService : IReportService
 
         var categoria = new CategoryDto(ev.City, ev.City);
 
-        // Campos = TicketEventColumn (enum) com labels amigáveis
-        var campos = GetCampos();
+        var campos = GetFields();
 
         return new TextDetailsDto(
             ev.EventId.ToString(),
@@ -469,20 +468,18 @@ public sealed class ReportService : IReportService
         );
     }
 
-    private static List<FieldDto> GetCampos()
+    private static List<FieldDto> GetFields()
     {
         return new List<FieldDto>
         {
             new(nameof(TicketEventColumn.Available), "Disponível"),
             new(nameof(TicketEventColumn.Sold), "Vendido"),
-            new(nameof(TicketEventColumn.Price), "Valor"),
+            new(nameof(TicketEventColumn.Price), "Preço"),
             new(nameof(TicketEventColumn.FeeRate), "Taxa (%)"),
             new(nameof(TicketEventColumn.FeeValue), "Taxa (R$)"),
-            new(nameof(TicketEventColumn.SaleStartDate), "Início Venda"),
-            new(nameof(TicketEventColumn.SaleEndDate), "Fim Venda"),
+            new(nameof(TicketEventColumn.SaleStartDate), "Início de Venda"),
+            new(nameof(TicketEventColumn.SaleEndDate), "Fim de Venda"),
             new(nameof(TicketEventColumn.Status), "Status"),
-            new(nameof(TicketEventColumn.CreateDate), "Criado em"),
-            new(nameof(TicketEventColumn.UpdateDate), "Atualizado em")
         };
     }
 

@@ -32,7 +32,7 @@ public static class Seeder
             EventName = "Bad Bunny",
             Description = "DeBÍ TiRAR MáS FOToS World Tour",
             EventDateTime = now.AddDays(45),
-            City = "Sao Paulo",
+            City = "Rio de Janeiro",
             TotalCapacity = 5000,
             Status = EventStatus.Active,
             CreateDate = now
@@ -317,10 +317,6 @@ public static class Seeder
         db.Event.AddRange(extraEvents);
         await db.SaveChangesAsync();
 
-        // FeeRate padrão (caso não venha do banco)
-        static decimal FR(decimal? v) => v ?? 0.20m;
-
-        // Helper: cria TicketEvent “padrão” (mantém consistência)
         static TicketEvent NewTicketEvent(
             int eventId,
             Ticket ticket,
@@ -395,7 +391,6 @@ public static class Seeder
         db.TicketEvent.AddRange(extraTicketEvents);
         await db.SaveChangesAsync();
 
-        // Helper para criar vendas
         static Sale NewSale(
             TicketEvent te,
             int eventId,

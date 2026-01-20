@@ -22,4 +22,11 @@
 	<ProjectReference Include="..\GenExcel.Infrastructure\GenExcel.Infrastructure.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Content Include="Assets\**\*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+
 </Project>
