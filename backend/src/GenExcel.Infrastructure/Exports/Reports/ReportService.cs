@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GenExcel.Infrastructure.Exports.Reports;
 
-public sealed class EventSpreadsheetReportService : IEventSpreadsheetReportService
+public sealed class ReportService : IReportService
 {
     private readonly AppDbContext _db;
 
@@ -34,7 +34,7 @@ public sealed class EventSpreadsheetReportService : IEventSpreadsheetReportServi
         Func<TicketEventRow, decimal>? Total
     );
 
-    public EventSpreadsheetReportService(AppDbContext db) => _db = db;
+    public ReportService(AppDbContext db) => _db = db;
 
     public async Task<byte[]> GenerateBatchAsync(EventSpreadsheetReportRequest request, CancellationToken ct)
     {
@@ -332,21 +332,6 @@ public sealed class EventSpreadsheetReportService : IEventSpreadsheetReportServi
         return specs;
     }
 
-    private static string DefaultHeader(TicketEventColumn col) => col switch
-    {
-        TicketEventColumn.Price => "Valor",
-        TicketEventColumn.Available => "Disponível",
-        TicketEventColumn.Sold => "Vendido",
-        TicketEventColumn.SaleStartDate => "Início Venda",
-        TicketEventColumn.SaleEndDate => "Fim Venda",
-        TicketEventColumn.Status => "Status",
-        TicketEventColumn.CreateDate => "Criado em",
-        TicketEventColumn.UpdateDate => "Atualizado em",
-        TicketEventColumn.FeeRate => "Taxa (%)",
-        TicketEventColumn.FeeValue => "Taxa (R$)",
-        _ => col.ToString()
-    };
-
     private static void ApplyColumnFormats(IXLWorksheet ws, List<ColSpec> specs, int dataStartRow, int totalRow)
     {
         for (int i = 0; i < specs.Count; i++)
@@ -431,6 +416,74 @@ public sealed class EventSpreadsheetReportService : IEventSpreadsheetReportServi
                 cell.SetValue(value.ToString() ?? string.Empty);
                 return;
         }
+    }
+
+    public async Task<List<CategoryDto>> GetCategoriesAsync(CancellationToken ct)
+    {
+        var cities = await _db.Event.AsNoTracking()
+            .Select(e => e.City)
+            .Where(c => c != null && c != "")
+            .Distinct()
+            .OrderBy(c => c)
+            .ToListAsync(ct);
+
+        return cities.Select(c => new CategoryDto(c, c)).ToList();
+    }
+
+    public async Task<List<SearchResultDto>> SearchTextsAsync(string q, int take, CancellationToken ct)
+    {
+        q = (q ?? "").Trim();
+        if (q.Length == 0) return new();
+
+        take = take is < 1 or > 50 ? 10 : take;
+
+        var items = await _db.Event.AsNoTracking()
+            .Where(e => e.EventName.Contains(q))
+            .OrderBy(e => e.EventName)
+            .Take(take)
+            .Select(e => new SearchResultDto(e.EventId.ToString(), e.EventName))
+            .ToListAsync(ct);
+
+        return items;
+    }
+
+    public async Task<TextDetailsDto?> GetTextoDetailsAsync(int eventId, CancellationToken ct)
+    {
+        var ev = await _db.Event.AsNoTracking()
+            .Where(e => e.EventId == eventId)
+            .Select(e => new { e.EventId, e.EventName, e.City })
+            .FirstOrDefaultAsync(ct);
+
+        if (ev is null) return null;
+
+        var categoria = new CategoryDto(ev.City, ev.City);
+
+        // Campos = TicketEventColumn (enum) com labels amigáveis
+        var campos = GetCampos();
+
+        return new TextDetailsDto(
+            ev.EventId.ToString(),
+            ev.EventName,
+            categoria,
+            campos
+        );
+    }
+
+    private static List<FieldDto> GetCampos()
+    {
+        return new List<FieldDto>
+        {
+            new(nameof(TicketEventColumn.Available), "Disponível"),
+            new(nameof(TicketEventColumn.Sold), "Vendido"),
+            new(nameof(TicketEventColumn.Price), "Valor"),
+            new(nameof(TicketEventColumn.FeeRate), "Taxa (%)"),
+            new(nameof(TicketEventColumn.FeeValue), "Taxa (R$)"),
+            new(nameof(TicketEventColumn.SaleStartDate), "Início Venda"),
+            new(nameof(TicketEventColumn.SaleEndDate), "Fim Venda"),
+            new(nameof(TicketEventColumn.Status), "Status"),
+            new(nameof(TicketEventColumn.CreateDate), "Criado em"),
+            new(nameof(TicketEventColumn.UpdateDate), "Atualizado em")
+        };
     }
 
 }

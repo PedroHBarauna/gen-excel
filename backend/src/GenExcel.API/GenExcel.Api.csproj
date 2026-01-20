@@ -22,10 +22,4 @@
 	<ProjectReference Include="..\GenExcel.Infrastructure\GenExcel.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Assets\logo.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	</Content>
-  </ItemGroup>
-
 </Project>

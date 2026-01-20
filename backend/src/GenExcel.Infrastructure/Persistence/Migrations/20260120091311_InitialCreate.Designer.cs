@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GenExcel.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260120054418_InitialCreate")]
+    [Migration("20260120091311_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
