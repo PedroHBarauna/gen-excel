@@ -123,5 +123,5 @@ Evoluir o projeto além de relatórios, suportando também:
 
 ## 📝 Observações
 
-Este projeto foi construído para fins de **avaliação técnica**, portanto pode conter simplificações (infra local, ausência de autenticação, validações mínimas).  
-As melhorias listadas acima apontam caminhos claros para torná-lo mais robusto e pronto para produção.
+O projeto foi construído para fins de **avaliação técnica**, portanto pode conter simplificações (infra local, ausência de autenticação, validações mínimas).  
+As melhorias listadas acima apontam caminhos para uma melhor solução.
