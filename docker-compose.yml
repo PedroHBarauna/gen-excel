@@ -29,6 +29,18 @@ services:
     networks:
       - gen-excel-net
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: gen-excel-frontend
+    depends_on:
+      - backend
+    ports:
+      - "${FRONTEND_PORT}:80"
+    networks:
+      - gen-excel-net
+
 volumes:
   sql_data:
 
