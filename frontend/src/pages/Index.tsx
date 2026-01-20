@@ -40,7 +40,7 @@ const Index = () => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `Relatorio_${new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-")}.xlsx`;
+      a.download = `Relatorio_Teste.xlsx`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -51,6 +51,12 @@ const Index = () => {
       console.error(e);
       toast.error("Erro ao exportar.");
     }
+  };
+
+  const handleToggleIncludeTotal = (id: string, value: boolean) => {
+    setItems((prev) =>
+      prev.map((it) => (it.id === id ? { ...it, includeTotal: value } : it)),
+    );
   };
 
   return (
@@ -73,6 +79,7 @@ const Index = () => {
             items={items}
             onRemove={handleRemove}
             onExport={handleExport}
+            onToggleIncludeTotal={handleToggleIncludeTotal}
           />
         </div>
       </main>

@@ -2,15 +2,23 @@ import { Trash2, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import type { ReportItem } from "./ReportForm";
 
 interface ReportListProps {
   items: ReportItem[];
   onRemove: (id: string) => void;
   onExport: () => void;
+  onToggleIncludeTotal: (id: string, value: boolean) => void;
 }
 
-const ReportList = ({ items, onRemove, onExport }: ReportListProps) => {
+const ReportList = ({
+  items,
+  onRemove,
+  onExport,
+  onToggleIncludeTotal,
+}: ReportListProps) => {
   return (
     <div className="flex flex-col rounded-xl border border-border bg-card shadow-card">
       <ScrollArea className="h-[320px] p-4">
@@ -47,15 +55,33 @@ const ReportList = ({ items, onRemove, onExport }: ReportListProps) => {
                   ))}
                 </div>
 
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onRemove(item.id)}
-                  className="shrink-0 text-destructive hover:text-destructive hover:bg-destructive/10"
-                >
-                  <Trash2 className="h-4 w-4 mr-1" />
-                  Apagar
-                </Button>
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id={`total-${item.id}`}
+                      checked={!!item.includeTotal}
+                      onCheckedChange={(v) =>
+                        onToggleIncludeTotal(item.id, v === true)
+                      }
+                    />
+                    <Label
+                      htmlFor={`total-${item.id}`}
+                      className="text-sm font-medium cursor-pointer select-none"
+                    >
+                      Total
+                    </Label>
+                  </div>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onRemove(item.id)}
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    Apagar
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
