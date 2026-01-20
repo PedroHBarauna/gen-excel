@@ -145,7 +145,7 @@ const ReportForm = ({ onAdd }: ReportFormProps) => {
       category: categoryName,
       fields: selectedFields,
       headers,
-      includeTotal: true,
+      includeTotal: false,
     });
 
     setText("");
@@ -198,7 +198,7 @@ const ReportForm = ({ onAdd }: ReportFormProps) => {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 min-w-[200px]">
+        <div className="w-[520px] max-w-full">
           {isLoadingDetails ? (
             <div className="flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -209,21 +209,28 @@ const ReportForm = ({ onAdd }: ReportFormProps) => {
               Selecione um texto para ver os campos
             </span>
           ) : (
-            availableFields.map((field) => (
-              <div key={field.id} className="flex items-center gap-2">
-                <Checkbox
-                  id={field.id}
-                  checked={selectedFields.includes(field.id)}
-                  onCheckedChange={() => handleFieldToggle(field.id)}
-                />
-                <Label
-                  htmlFor={field.id}
-                  className="text-sm font-medium cursor-pointer"
-                >
-                  {field.label}
-                </Label>
+            <div className="max-h-[72px] overflow-auto rounded-md border border-border bg-background p-2">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                {availableFields.map((field) => (
+                  <div
+                    key={field.id}
+                    className="flex items-center gap-1.5 whitespace-nowrap"
+                  >
+                    <Checkbox
+                      id={field.id}
+                      checked={selectedFields.includes(field.id)}
+                      onCheckedChange={() => handleFieldToggle(field.id)}
+                    />
+                    <Label
+                      htmlFor={field.id}
+                      className="text-xs font-medium cursor-pointer select-none leading-none"
+                    >
+                      {field.label}
+                    </Label>
+                  </div>
+                ))}
               </div>
-            ))
+            </div>
           )}
         </div>
 
