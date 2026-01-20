@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,9 +37,11 @@ builder.Services.AddSwaggerGen(options =>
         [new OpenApiSecuritySchemeReference(scheme, document)] = new List<string>()
     });
 });
-
-var cs = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine($">>> CS: {cs}");
+builder.Services.AddControllers()
+    .AddJsonOptions(o =>
+    {
+        o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddInfrastructure(builder.Configuration);
 var jwt = builder.Configuration.GetSection("Jwt");
 var key = jwt["Key"] ?? throw new InvalidOperationException("Jwt:Key not configured.");

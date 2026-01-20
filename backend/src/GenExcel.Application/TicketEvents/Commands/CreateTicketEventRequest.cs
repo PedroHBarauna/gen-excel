@@ -7,6 +7,7 @@ public sealed record CreateTicketEventRequest(
     int TicketId,
     string Name,
     string? Description,
+    decimal FeeRate,
     decimal Price,
     int Available,
     DateTime SaleStartDate,

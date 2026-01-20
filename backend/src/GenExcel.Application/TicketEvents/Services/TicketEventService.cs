@@ -11,9 +11,9 @@ public sealed class TicketEventService : ITicketEventService
 {
     private readonly ITicketEventRepository _repo;
 
-    public TicketEventService(ITicketEventRepository queries)
+    public TicketEventService(ITicketEventRepository repo)
     {
-        _repo = queries;
+        _repo = repo;
     }
 
     public Task<PagedResult<TicketEventListDto>> SearchAsync(SearchTicketsEventQuery query, CancellationToken ct)
@@ -36,6 +36,9 @@ public sealed class TicketEventService : ITicketEventService
             TicketId = request.TicketId,
             EventId = request.EventId,
             Price = request.Price,
+            Name = request.Name,
+            Description = request.Description!,
+            FeeRate = request.FeeRate,
             Available = request.Available,
             Sold = 0,
             SaleStartDate = request.SaleStartDate,
@@ -57,7 +60,7 @@ public sealed class TicketEventService : ITicketEventService
         var entity = await _repo.GetByIdAsync(ticketEventId, ct);
         if (entity is null) return null;
 
-        
+        entity.FeeRate = request.FeeRate;
         entity.Name = request.Name;
         entity.Description = request.Description;
         entity.Price = request.Price;
@@ -108,6 +111,7 @@ public sealed class TicketEventService : ITicketEventService
             t.Name,
             t.Description,
             t.Price,
+            t.FeeRate,
             t.Available,
             t.Sold,
             t.SaleStartDate,

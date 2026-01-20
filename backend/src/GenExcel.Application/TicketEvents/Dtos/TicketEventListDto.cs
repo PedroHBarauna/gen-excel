@@ -8,6 +8,7 @@ public sealed record TicketEventListDto(
     int EventId,
     string Name,
     string Description,
+    decimal Fee,
     decimal Price,
     int Available,
     int Sold,

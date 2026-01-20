@@ -5,6 +5,7 @@ namespace GenExcel.Application.Tickets.Commands;
 public sealed record UpdateTicketEventRequest(
     string Name,
     string Description,
+    decimal FeeRate,
     decimal Price,
     int Available,
     DateTime SaleStartDate,

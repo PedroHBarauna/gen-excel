@@ -78,6 +78,7 @@ public sealed class TicketEventRepository : ITicketEventRepository
                 t.EventId,
                 t.Name,
                 t.Description,
+                t.FeeRate,
                 t.Price,
                 t.Available,
                 t.Sold,

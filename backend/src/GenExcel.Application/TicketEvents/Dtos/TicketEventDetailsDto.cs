@@ -9,6 +9,7 @@ public sealed record TicketEventDetailsDto(
     string Name,
     string Description,
     decimal Price,
+    decimal FeeRate,
     int Available,
     int Sold,
     DateTime SaleStartDate,
