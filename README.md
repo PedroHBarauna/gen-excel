@@ -28,7 +28,27 @@ O objetivo do projeto é disponibilizar uma forma de **consultar dados de evento
 ## Como rodar — Docker Compose
 
 ### Pré-requisitos
-- Docker e Docker Compose instalados
+- Docker e Docker Compose instalados e .env preenchido
+
+### Preencha o .env.example
+```
+# Sql Server
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+# Backend
+ASPNETCORE_ENVIRONMENT=
+BACKEND_PORT=
+ConnectionStrings__DefaultConnection=
+#Frontend
+FRONTEND_PORT=
+JWT_KEY=
+VITE_API_URL=
+```
+
+Como o método de encriptação é HS256, é requerido uma JWT_KEY de 32+ caracteres
 
 ### Subir tudo
 ```bash
